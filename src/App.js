@@ -45,7 +45,7 @@ const App = () => {
         `https://api.ambeedata.com/weather/forecast/by-lat-lng?lat=${latitude}&lng=${longitude}`,
         {
           headers: {
-            'x-api-key': '9ba4ba864050b2415484037660457eb5f011b773158628acd8eed451c26b003c',
+            'x-api-key': 'f2de489cca5258fa4b962af0bdc9a25b1f1cd118e6b33c34c1e5cb39d2c2d65e',
           },
         }
       );
@@ -63,6 +63,7 @@ const App = () => {
 
   const handleLocationSubmit = async (event) => {
     event.preventDefault();
+    console.log(event.preventDefault())
     try {
       const response = await fetch(
         `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(
@@ -89,34 +90,34 @@ const App = () => {
     return dayOfWeek
   }
 
-
+  console.log(dayOfWeek(1684339200))
   return (
     <div className="container">
       <h1>Weather App</h1>
       <form onSubmit={handleLocationSubmit} style={{ marginTop: '20px' }}>
-        <input type="text" value={location} onChange={(event)=> setLocation(event.target.value)} placeholder="Enter location" />
+        <input type="text" value={location} onChange={(event)=> setLocation(event.target.value)}  placeholder="Enter location" />
         <button type="submit">Get Weather</button>
       </form>
       {error && <p className="error">{error}</p>}
-      {weatherData && (
+      {weatherData || weatherForecast && (
         <div className="weather-data">
           <h2 className="location">{weatherData.location}</h2>
           <p>Temperature: {weatherData.data.apparentTemperature}°C</p>
           <p>Wind speed: {weatherData.data.windSpeed}</p>
           <p>Humidity: {weatherData.data.humidity}</p>
-
+          
           <h3 className="forecast-heading">Weather Forecast for the next 7 days:</h3>
+
           {weatherForecast.map((day, idx) => {
-            return(
+            if((idx)%11===0)return(
             <div key={day.time}>
               <h4><strong>Date: {dayOfWeek(day.time)}</strong></h4>
               <p>Temperature: {day.apparentTemperature}°C</p>
               <p>Condition: {day.weather}</p>
-              <p>Humidity: {weatherData.data.humidity}</p>
+              <p>Humidity: {day.humidity}</p>
             </div>
             )
           })}
-
         </div>
       )}
     </div>
