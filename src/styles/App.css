@@ -1,0 +1,76 @@
+/* Weather App styles */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+h1 {
+  text-align: center;
+}
+
+form {
+  display: flex;
+  margin-top: 20px;
+}
+
+input[type="text"] {
+  flex: 1;
+  padding: 10px;
+  font-size: 16px;
+}
+
+button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.error {
+  color: red;
+  margin-top: 10px;
+}
+
+.weather-data {
+  margin-top: 20px;
+}
+
+.location {
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.current-weather {
+  margin-top: 10px;
+  text-align: center;
+}
+
+.forecast-heading {
+  margin-top: 20px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.forecast-day {
+  margin-top: 10px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.forecast-temperature {
+  margin-top: 5px;
+}
+
+.forecast-condition {
+  margin-top: 5px;
+}
