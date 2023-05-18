@@ -31,6 +31,7 @@ const App = () => {
       );
       const data = await response.json();
       setWeatherData(data);
+      console.log(data)
       setError(null);
 
     } catch (error) {
@@ -51,7 +52,6 @@ const App = () => {
       );
       const dataForecast = await response.json();
       setWeatherForecast(dataForecast.data.forecast);
-      console.log(dataForecast.data.forecast)
       setError(null);
 
     } catch (error) {
@@ -63,7 +63,6 @@ const App = () => {
 
   const handleLocationSubmit = async (event) => {
     event.preventDefault();
-    console.log(event.preventDefault())
     try {
       const response = await fetch(
         `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(
@@ -72,7 +71,7 @@ const App = () => {
       );
       const data = await response.json();
       if (data.results.length > 0) {
-        const { lat, lng } = data.results[0].geometry.location;
+        const {lat, lng} = data.results[0].geometry.location;
         setLatitude(lat);
         setLongitude(lng);
         setError(null);
@@ -90,7 +89,7 @@ const App = () => {
     return dayOfWeek
   }
 
-  console.log(dayOfWeek(1684339200))
+
   return (
     <div className="container">
       <h1>Weather App</h1>
@@ -99,9 +98,9 @@ const App = () => {
         <button type="submit">Get Weather</button>
       </form>
       {error && <p className="error">{error}</p>}
-      {weatherData || weatherForecast && (
+      {weatherData && (
         <div className="weather-data">
-          <h2 className="location">{weatherData.location}</h2>
+          <h2 className="location">{location}</h2>
           <p>Temperature: {weatherData.data.apparentTemperature}°C</p>
           <p>Wind speed: {weatherData.data.windSpeed}</p>
           <p>Humidity: {weatherData.data.humidity}</p>
@@ -110,8 +109,8 @@ const App = () => {
 
           {weatherForecast.map((day, idx) => {
             if((idx)%11===0)return(
-            <div key={day.time}>
-              <h4><strong>Date: {dayOfWeek(day.time)}</strong></h4>
+            <div key={idx}>
+              <h4  className="location"><strong>Date: {dayOfWeek(day.time)}</strong></h4>
               <p>Temperature: {day.apparentTemperature}°C</p>
               <p>Condition: {day.weather}</p>
               <p>Humidity: {day.humidity}</p>
